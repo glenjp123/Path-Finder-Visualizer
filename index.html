@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles/styles.css">
+  </head>
+  <body>
+    <div class="app-container">
+      <h1>Path Finder Visualizer</h1>
+
+      <div class="grid-input-area">
+        <label for="row-input">Row: </label>
+        <input class="input-box" id="row-input" type="number" value="3">
+        <label for="col-input">Column: </label>
+        <input class="input-box" id="col-input" type="number" value="3">
+        <button class=" generate-grid-maze-button js-generate-grid-maze-button">Generate Grid Maze</button>
+      </div>
+
+
+      <div class="grid-maze-div">
+        <div class="grid-maze-container ">
+          <div class="grid-maze js-grid-maze">
+            <div class="grid-maze-cell js-grid-maze-cell-1">cell 1</div>
+            <div class="grid-maze-cell
+            js-grid-maze-cell-2">cell 2</div>
+            <div class="grid-maze-cell
+            js-grid-maze-cell-3">cell 3</div>
+            <div class="grid-maze-cell
+            js-grid-maze-cell-4">cell 4</div>
+            <div class="grid-maze-cell 
+            js-grid-maze-cell-5">cell 5</div>
+            <div class="grid-maze-cell
+            js-grid-maze-cell-6">cell 6</div>
+            <div class="grid-maze-cell
+            js-grid-maze-cell-7">cell 7</div>
+            <div class="grid-maze-cell
+            js-grid-maze-cell-8">cell 8</div>
+            <div class="grid-maze-cell
+            js-grid-maze-cell-9">cell 9</div>
+          </div>
+      </div>
+
+      </div>
+   
+
+      <div class="path-found-message-container js-path-found-message-container"></div>
+
+
+      <div class="position-div js-position-div">
+      </div>   
+
+      <script type="module" src="/scripts/index.js"></script>
+
+    </div>
+
+  </body>
+</html>
