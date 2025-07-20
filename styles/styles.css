@@ -1,14 +1,21 @@
   body{
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: black;
+    display: flex;
+    font-family: Quicksand;
+    background-color: rgb(235, 235, 235);
+    justify-content: center;
   }
   .app-container{
-    background-color: rgb(0, 0, 0);
+    background-color: rgb(192, 186, 186);
+    border-radius: 5px;
+    box-shadow: 7px 7px 10px rgb(125, 117, 117);
+    padding: 20px 20px;
   }
   
   h1{
     margin-left: 20px;
-    color: blue;
+    color: rgb(77, 77, 255);
+    text-align: center;
+    text-shadow: 0.8px 0.8px rgb(125, 117, 117);
   }
 
   .input-box{
@@ -26,6 +33,7 @@
     align-items: center;
     background-color: rgb(189, 191, 191);
     margin-bottom: 30px;
+    box-shadow: 3px 3px 10px rgb(125, 117, 117);
   }
 
   
@@ -35,15 +43,40 @@
     border-radius: 5px;
   }
 
+  .grid-input-area > label{
+    font-family: Quicksand;
+    font-weight: 500;
+  }
+
   .grid-input-area > button{
     height: 30px;
     border-radius: 5px;
     cursor: pointer;
   }
 
+  .generate-grid-maze-button{
+    border-style: none;
+    font-family: Quicksand;
+    font-weight: bold;
+    color: rgb(52, 49, 49);
+    transition: background-color 0.3s;
+    box-shadow: 2px 2px 2px rgb(125, 117, 117);
+    margin-right: 30px;
+  }
+
+  .generate-grid-maze-button:hover{
+    background-color: rgb(70, 188, 228);
+    color: rgb(255, 255, 255);
+  }
+
+  .generate-grid-maze-button:active{
+    height: 35px;
+    width: 150px;
+    background-color: rgb(16, 40, 48);
+  }
+
   div{
     border-width: 2px;
-    border-style: solid;
     margin: 5px 5px;
     padding: 5px 5px;
   }
@@ -60,22 +93,21 @@
     grid-template-rows: 100px 100px 100px ; 
     padding: 0px;
     width: fit-content;
+    border-style: solid;
   }
   .grid-maze-container{
     margin-bottom: 30px;
     background-color: rgb(217, 217, 217);
     border-style: none;
     border-radius: 10px;
+    border-style: solid;
   }
   .grid-maze-cell{
+    border-style:solid;
+    border-width: 1px;
     margin: 0px;
     background-color: rgb(225, 185, 185);
     transition: background-color 0.3s ease-in-out;
-  }
-
-  .start-simulation-button{
-    margin-left: 20px;
-    cursor: pointer;
   }
 
   .select-start-and-destination-area-input-container{
@@ -86,6 +118,7 @@
     gap:10px ;
     background-color: rgb(189, 191, 191);
     border-radius: 10px;
+    box-shadow: 3px 3px 10px rgb(125, 117, 117);
   }
 
   .adventerur-div{
@@ -93,6 +126,7 @@
     font-size: 20px;
     border-radius: 5px;
     background-color: rgb(227, 232, 237);
+    box-shadow: 3px 3px 10px rgb(125, 117, 117); ;
   }
 
   .adventerur-div > div{
@@ -116,6 +150,7 @@
     font-size: 20px;
     border-radius: 5px;
     background-color: rgb(227, 232, 237);
+    box-shadow: 3px 3px 10px rgb(125, 117, 117);
   }
 
   .destination-div > div{
@@ -143,12 +178,25 @@
     font-size: 20px;
     margin-top: 30px;
     margin-bottom: 30px;
+    margin-left: 20px;
     border-style: none;
     background-color: rgb(245, 244, 230);
     color: blue;
     height: 40px;
     width: 170px;
+    cursor: pointer;
+    box-shadow: 2px 2px 2px rgb(125, 117, 117);
+  }
 
+  .start-simulation-button:hover{
+    background-color: blue;
+    color:rgb(245, 244, 230);
+  }
+
+  .start-simulation-button:active{
+    height:50px;
+    width: 180px;
+    background-color: rgb(1, 1, 79);
   }
 
 

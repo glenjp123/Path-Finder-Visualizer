@@ -1,6 +1,8 @@
 const rowNumberInputElement = document.getElementById('row-input');
 const columnNumberInputElement = document.getElementById('col-input');
 
+export let simulationOn = 0;
+
 
 export function getCellNUmber(row,column){
   const columnNumber = Number(columnNumberInputElement.value);

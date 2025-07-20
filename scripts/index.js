@@ -1,5 +1,5 @@
 import { finder } from "./finder.js";
-import { getXAndYFromCellNumber } from "./number.js";
+import { getXAndYFromCellNumber, simulationOn} from "./number.js";
 
 
 
@@ -98,6 +98,7 @@ function generateGrid(){
   document.querySelector('.js-position-div').innerHTML = html;
 
 
+
   document.querySelector('.js-select-adventurer-input-button').addEventListener('click',() =>{
     const adventerurX= Number(document.getElementById('adventurer-x').value);
     const adventerurY =Number(document.getElementById('adventurer-y').value);
@@ -117,14 +118,22 @@ function generateGrid(){
     const startXAndY=getXAndYFromCellNumber(adventPosCell);
     const destinPosCell= JSON.parse(localStorage.getItem('destinPosCell')) || 0;
     const endXAndY=getXAndYFromCellNumber(destinPosCell);
-    finder(startXAndY.x,startXAndY.y,endXAndY.x,endXAndY.y);
+
+    async function runSimulation(){
+      await finder(startXAndY.x,startXAndY.y,endXAndY.x,endXAndY.y);
+    }
+
+    runSimulation();
+    
 
   });
 
 }
 
 document.querySelector('.js-generate-grid-maze-button').addEventListener('click', ()=>{
-  generateGrid();
+  // if(simulationOn === 0){
+    generateGrid();
+  // }
 })
 
 

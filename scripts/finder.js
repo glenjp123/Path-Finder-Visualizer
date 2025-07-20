@@ -1,4 +1,5 @@
 import { getCellNUmber, getRowNumber, getColumnNumber } from "./number.js";
+import { simulationOn } from "./number.js";
 
 
 function sleep(ms) {
@@ -105,7 +106,6 @@ export async function finder(startX,startY,endX,endY){
   await markingPath(endX,endY,endX,endY,directionInfo);
 
   await foundMessage(directionInfo[getCellNUmber(endX,endY)] !== '$',startX,startY,endX,endY);
-
 
 }
 
