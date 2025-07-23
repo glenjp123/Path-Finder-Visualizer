@@ -1,15 +1,28 @@
 import { finder } from "./finder.js";
-import { getXAndYFromCellNumber, simulationOn} from "./number.js";
+import { getXAndYFromCellNumber, simulationOn, getCellNUmber} from "./number.js";
+
+
+let adventerur = false;
+let destination = false;
+let simulation = false;
 
 
 
 const rowNumberInputElement = document.getElementById('row-input');
 const columnNumberInputElement = document.getElementById('col-input');
+const row = Number(rowNumberInputElement.value);
+const col = Number(columnNumberInputElement.value);
 
 
+
+generateGrid();
 
 function generateGrid(){
-  deleteStorage();
+  
+  let adventPosCell= JSON.parse(localStorage.getItem('adventPosCell')) || 1;
+  let destinPosCell= JSON.parse(localStorage.getItem('destinPosCell')) || row * col;
+  const startXAndY=getXAndYFromCellNumber(adventPosCell);
+  const endXAndY=getXAndYFromCellNumber(destinPosCell);
   document.querySelector('.js-path-found-message-container').innerHTML = ``;
   const rowNumber= rowNumberInputElement.value;
   const columnNumber = columnNumberInputElement.value;
@@ -25,7 +38,7 @@ function generateGrid(){
   cnt = rowNumber;
 
   while(cnt > 0){
-    rowStyleDimensions += '100px ';
+    rowStyleDimensions += 'minmax(0, 15px) ';
     cnt--;
   }
 
@@ -34,7 +47,7 @@ function generateGrid(){
   cnt = columnNumber;
 
   while(cnt > 0){
-    columnStyleDimensions += 'minmax(0, 100px) ';
+    columnStyleDimensions += 'minmax(0, 15px) ';
     cnt--;
   }
 
@@ -48,71 +61,45 @@ function generateGrid(){
 
     let classString = '';
 
-    if(randomNumber >= 0.7){
+    if(randomNumber >= 0.7 && cnt!== adventPosCell && cnt!== destinPosCell){
 
       classString = 'stone-block';
     }
 
-    html+= `<div class="grid-maze-cell ${classString} js-grid-maze-cell-${cnt}">cell ${cnt}</div>`;
+    html+= `<div class="grid-maze-cell ${classString} js-grid-maze-cell-${cnt}"></div>`;
     total--;
     cnt++;
   }
 
   document.querySelector('.js-grid-maze').innerHTML= html;
 
+  for(let i = 1; i <= row; ++i){
+      for(let j = 1; j <=col ; ++j){
+        document.querySelector(`.js-grid-maze-cell-${getCellNUmber(i,j)}`).addEventListener('click',() =>{
+          console.log({
+            i:i,
+            j:j
+          });
+          if(adventerur){
+            assignPositions(i,j,'adventerur');
+            adventerur = false;
+          }
+          else if(destination){
+            assignPositions(i,j,'destination');
+            destination = false;
+          }
+        });
+      }
+  }
 
-  html = `
-  <div class="select-start-and-destination-area-input-container
-      js-select-start-and-destination-area-input-container
-      ">
-    <div class= "adventerur-div">
-      <div>Select the adventurer's position :</div>
-      <div>
-        <label for="adventurer-x">X : </label>
-        <input class = "input-box" id="adventurer-x" type="number">
-        <label for="adventurer-y">Y : </label>
-        <input class ="input-box" id="adventurer-y" type="number">
-        <button class="select-adventurer-input-button
-        js-select-adventurer-input-button
-        ">Select</button>
-      </div>
-    </div>
+  assignPositions(startXAndY.x,startXAndY.y,'adventerur');
+  assignPositions(endXAndY.x,endXAndY.y,'destination');
 
-    <div class ="destination-div">
-      <div>Select the destination's position :</div>
-      <div>
-        <label for="destination-x">X : </label>
-        <input class = "input-box" id="destination-x" type="number">
-        <label for="destination-y">Y : </label>
-        <input class ="input-box" id="destination-y" type="number">
-        <button class="select-destination-input-button
-        js-select-destination-input-button
-        ">Select</button>
-      </div>
-    </div>
-
-    <button class="start-simulation-button js-start-simulation-button">Start The Hunt!</button>
-    </div>  
-  `;
-
-  document.querySelector('.js-position-div').innerHTML = html;
+}
 
 
-
-  document.querySelector('.js-select-adventurer-input-button').addEventListener('click',() =>{
-    const adventerurX= Number(document.getElementById('adventurer-x').value);
-    const adventerurY =Number(document.getElementById('adventurer-y').value);
-
-    assignPositions(adventerurX,adventerurY,'adventerur');
-  });
-
-  document.querySelector('.js-select-destination-input-button').addEventListener('click',() =>{
-    const destinationX=Number( document.getElementById('destination-x').value);
-    const destinationY = Number(document.getElementById('destination-y').value);
-    assignPositions(destinationX,destinationY,'destination');
-  });
-
-  document.querySelector('.js-start-simulation-button').addEventListener('click',()=>{
+document.querySelector('.js-start-simulation-button').addEventListener('click',()=>{
+    if(simulation) return;
     document.querySelector('.js-position-div').innerHTML=``;
     const adventPosCell= JSON.parse(localStorage.getItem('adventPosCell')) || 0;
     const startXAndY=getXAndYFromCellNumber(adventPosCell);
@@ -120,28 +107,49 @@ function generateGrid(){
     const endXAndY=getXAndYFromCellNumber(destinPosCell);
 
     async function runSimulation(){
+      simulation = true;
       await finder(startXAndY.x,startXAndY.y,endXAndY.x,endXAndY.y);
+      console.log('completed');
+      simulation = false;
     }
 
+    if(adventerur || destination){
+      alert(`please select ${(adventerur)? 'adventerur' : 'destination'}'s positon`);
+      return;
+    }
     runSimulation();
-    
-
   });
 
-}
+document.querySelector('.js-adject-adventurer-position-button').addEventListener('click',() =>{
+  if(simulation) return;
+  adventerur = true;
+});
+
+document.querySelector('.js-adject-destination-position-button').addEventListener('click',() =>{
+  if(simulation) return;
+  destination = true;
+});
 
 document.querySelector('.js-generate-grid-maze-button').addEventListener('click', ()=>{
-  // if(simulationOn === 0){
+    if(simulation) return;
     generateGrid();
-  // }
-})
+});
+
+
+document.querySelector('.js-clear-maze-button').addEventListener('click',() => {
+  if(simulation) return;
+  for(let i = 1; i <= 1500; ++i){
+    const element = document.querySelector(`.js-grid-maze-cell-${i}`);
+    element.classList.remove('stone-block');
+  }
+});
 
 
 
 function assignPositions(positonX, positonY, type){
 
   let adventPosCell= JSON.parse(localStorage.getItem('adventPosCell')) || 0;
-  let destinPosCell= JSON.parse(localStorage.getItem('destinPosCell')) || 0
+  let destinPosCell= JSON.parse(localStorage.getItem('destinPosCell')) || 0;
   
   const columnNumber = Number(columnNumberInputElement.value);
 
@@ -179,11 +187,4 @@ function assignPositions(positonX, positonY, type){
   }
 
 }
-
-
-function deleteStorage(){
-  localStorage.removeItem('adventPosCell');
-  localStorage.removeItem('destinPosCell');
-}
-
 

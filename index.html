@@ -13,33 +13,29 @@
 
       <div class="grid-input-area">
         <label for="row-input">Row: </label>
-        <input class="input-box" id="row-input" type="number" value="3">
+        <input class="input-box" id="row-input" type="number" value="30">
         <label for="col-input">Column: </label>
-        <input class="input-box" id="col-input" type="number" value="3">
+        <input class="input-box" id="col-input" type="number" value="50">
         <button class=" generate-grid-maze-button js-generate-grid-maze-button">Generate Grid Maze</button>
+        <select name="algorithms" id="algorithm">
+          <option value="dfs-algorithm">DFS Algorithm</option>
+          <option value="bfs-algorithm">BFS Algorithm</option>
+          <option value="a-star-search-algorithm">A* Search Algorithm</option>
+        </select>
+        <button class="start-simulation-button js-start-simulation-button">Start The Hunt!</button>
+        <button class="clear-maze-button js-clear-maze-button">Clear Maze</button>
+        <button class="adject-adventurer-position-button 
+        js-adject-adventurer-position-button">Adjust Adventurer position</button>
+        <button class="adject-destination-position-button
+        js-adject-destination-position-button">Adject Destination position</button>
       </div>
+
+      <div class="run-simulation-instruction"></div>
 
 
       <div class="grid-maze-div">
         <div class="grid-maze-container ">
           <div class="grid-maze js-grid-maze">
-            <div class="grid-maze-cell js-grid-maze-cell-1">cell 1</div>
-            <div class="grid-maze-cell
-            js-grid-maze-cell-2">cell 2</div>
-            <div class="grid-maze-cell
-            js-grid-maze-cell-3">cell 3</div>
-            <div class="grid-maze-cell
-            js-grid-maze-cell-4">cell 4</div>
-            <div class="grid-maze-cell 
-            js-grid-maze-cell-5">cell 5</div>
-            <div class="grid-maze-cell
-            js-grid-maze-cell-6">cell 6</div>
-            <div class="grid-maze-cell
-            js-grid-maze-cell-7">cell 7</div>
-            <div class="grid-maze-cell
-            js-grid-maze-cell-8">cell 8</div>
-            <div class="grid-maze-cell
-            js-grid-maze-cell-9">cell 9</div>
           </div>
       </div>
 
